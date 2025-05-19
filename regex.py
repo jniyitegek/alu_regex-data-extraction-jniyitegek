@@ -1,95 +1,37 @@
 import re
-import sys
 
-class RegexExtractor:
-    """
-    A class that provides methods to extract various data types using regex patterns.
-    """
-    
-    def __init__(self):
-        # Define regex patterns for different data types
-        self.patterns = {
-            # Email addresses
-            'email': r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',
-            
-            # URLs
-            'url': r'https?://(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)',
-            
-            # Phone numbers
-            'phone': r'(?:\(\d{3}\)\s*|\d{3}[-.])\d{3}[-.]?\d{4}',
-            
-            # Credit card numbers
-            'credit_card': r'\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}',
-            
-            # Time formats
-            'time': r'(?:1[0-2]|0?[1-9]):[0-5][0-9]\s*(?:AM|PM|am|pm)|(?:2[0-3]|[01]?[0-9]):[0-5][0-9]',
-            
-            # HTML tags
-            'html_tag': r'<[^>]+>',
-            
-            # Hashtags
-            'hashtag': r'#[a-zA-Z0-9_]+',
-            
-            # Currency amounts
-            'currency': r'\$\d{1,3}(?:,\d{3})*\.\d{2}'
-        }
-        
-    def extract_data(self, text, data_type):
-        """
-        Extract data of specified type from input text.
-        
-        Args:
-            text (str): Input text to search for patterns
-            data_type (str): Type of data to extract (must be a key in self.patterns)
-            
-        Returns:
-            list: List of extracted items
-        """
-        if data_type not in self.patterns:
-            raise ValueError(f"Unknown data type: {data_type}")
-        
-        pattern = self.patterns[data_type]
+def extract_data(text):
+    patterns = {
+        "Emails": r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b',
+        "Phone Numbers": r'(\(\d{3}\)\s*|\d{3}[-.])\d{3}[-.]\d{4}',
+        "Credit Card Numbers": r'\b(?:\d{4}[-\s]?){3}\d{4}\b',
+        "Time (12/24-hour)": r'\b(?:[01]?\d|2[0-3]):[0-5]\d(?:\s?[APap][Mm])?\b'
+    }
+
+    results = {}
+    for label, pattern in patterns.items():
         matches = re.findall(pattern, text)
-        return matches
-    
-    def extract_all_data(self, text):
-        """
-        Extract all supported data types from input text.
-        
-        Args:
-            text (str): Input text to search for patterns
-            
-        Returns:
-            dict: Dictionary with data types as keys and lists of extracted items as values
-        """
-        results = {}
-        for data_type in self.patterns:
-            results[data_type] = self.extract_data(text, data_type)
-        return results
-
+        # For phone numbers, flatten tuple results
+        if label == "Phone Numbers":
+            matches = [match[0] if isinstance(match, tuple) else match for match in matches]
+        results[label] = matches
+    return results
 
 def main():
-    """
-    Main function for command-line execution.
-    """
-    if len(sys.argv) < 3:
-        print("Usage: python regex_extractor.py <data_type> <text>")
-        print("Available data types: email, url, phone, credit_card, time, html_tag, hashtag, currency")
-        return
-    
-    data_type = sys.argv[1]
-    text = sys.argv[2]
-    
-    extractor = RegexExtractor()
-    
-    try:
-        results = extractor.extract_data(text, data_type)
-        print(f"Found {len(results)} {data_type} matches:")
-        for i, match in enumerate(results, 1):
-            print(f"{i}. {match}")
-    except ValueError as e:
-        print(f"Error: {e}")
+    print(" Welcome to Jean Philippe's  Regex Data Finder/Extractor")
+    user_input = input("Enter or paste your text: \n")
+    print("\nAnalyzing...\n")
 
+    results = extract_data(user_input)
+
+    for category, matches in results.items():
+        print(f"{category}:")
+        if matches:
+            for item in matches:
+                print(f"  - {item}")
+        else:
+            print("  No matches found.")
+        print()
 
 if __name__ == "__main__":
     main()
