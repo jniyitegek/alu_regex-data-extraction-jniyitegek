@@ -21,6 +21,8 @@ After analyzing the text, the tool prints a categorized list of all matches foun
 - Phone Numbers
 - Credit Card Numbers
 - Time (12/24-hour)
+- currency
+- and finally the hashtags #
 
 ##  How to Run
 
