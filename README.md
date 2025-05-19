@@ -36,7 +36,7 @@ After analyzing the text, the tool prints a categorized list of all matches foun
 
 2. Run the script:
     ```bash
-    python extractor.py
+    python3 regex.py
     ```
 
 3. Paste or type your text when prompted.
