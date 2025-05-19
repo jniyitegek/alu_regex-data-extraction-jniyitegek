@@ -1,6 +1,6 @@
-# 🔍 Regex Data Extraction Tool
+# My regular Expressions Data extraction Tool
 
-This is a Python script that uses **regular expressions (RegEx)** to extract useful data patterns from any text input provided by the user.
+Hello, This tool mainly uses Python language and a python script that uses **regular expressions (RegEx)** to extract useful data patterns from any text input provided by the user. What you need is to paste or type data and It will tell you what type of data your text was having.
 
 ## Features
 
@@ -30,8 +30,8 @@ After analyzing the text, the tool prints a categorized list of all matches foun
 ### Steps:
 1. Clone this repository:
     ```bash
-    git clone https://github.com/{YourUsername}/alu_regex-data-extraction-{YourUsername}.git
-    cd alu_regex-data-extraction-{YourUsername}
+    git clone https://github.com/jniyitegek/alu_regex-data-extraction-jniyitegek.git
+    cd alu_regex-data-extraction-jniyitegek
     ```
 
 2. Run the script:
@@ -41,9 +41,4 @@ After analyzing the text, the tool prints a categorized list of all matches foun
 
 3. Paste or type your text when prompted.
 
-## File Structure
-
-```plaintext
-alu_regex-data-extraction-{YourUsername}/
-├── extractor.py       # Main Python script
-└── README.md          # Project documentation
+## Enjoy!
